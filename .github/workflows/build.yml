@@ -5,10 +5,11 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -16,11 +17,10 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Build APK
-        uses: digreatbrian/buildozer-action@v1
+      - name: Build with Buildozer
+        uses: ArtemSBulgakov/buildozer-action@v1
         with:
-          workdir: .
-          python-version: '3.10'
+          command: buildozer android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
